@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map'
+import * as crypto from 'crypto-js';
 
 @Injectable()
 export class CryptoService {
 
   constructor() { }
 
-  encrypt(cryptMethod: any) {
-    console.log('Oi');
+  encrypt(message: string, key: string) {
+    return crypto.AES.encrypt(message, key).toString();
   }
 
-  decrypt(cryptMethod) {
-    console.log('Oi');
+  decrypt(cryptedMessage: string, key: string) {
+    return crypto.AES.decrypt(cryptedMessage, key).toString(crypto.enc.Utf8);
   }
 }
