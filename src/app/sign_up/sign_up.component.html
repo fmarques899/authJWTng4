@@ -1,3 +1,22 @@
 <p>
   sign-up works!
 </p>
+<div>
+  <form (ngSubmit)="signUp(signUpForm.value)" [formGroup]="signUpForm">
+    <input formControlName="username" placeholder="Username" name="username" >
+    <input formControlName="cpf" placeholder="cpf" name="cpf">
+    <input formControlName="password" placeholder="Password" name="password" >
+    <input formControlName="password_confirmation" placeholder="Confirm Password" name="password_confirmation" >
+    <input formControlName="email" placeholder="Email" name="email">
+    <input formControlName="email_confirmation" placeholder="Confirm Email" name="email_confirmation"> 
+    <div class="alert" *ngIf="!signUpForm.controls['username'].valid && signUpForm.controls['username'].touched ">
+       
+    </div>
+    <p>
+      <button [disabled]="!signUpForm.valid" >Register</button>
+    </p>
+  </form>
+  <p>
+      <button>Sign In</button>
+    </p>  
+</div>
