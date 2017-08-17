@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
-  templateUrl: './sign_up.component.html',
-  styleUrls: ['./sign_up.component.css']
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
 
@@ -60,5 +60,19 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  resetFields(){
+    //Function for clean values in form 
+   this.signUpForm.reset();
+  }
+  
+  signUp(){
+    //Function for register User in server
+    // user service user_service f 
+    console.log("Register");
+    
+  }
+  
+
 
 }
