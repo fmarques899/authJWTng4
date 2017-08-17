@@ -7,9 +7,8 @@
     <input formControlName="email" placeholder="Email" name="email">
     <input formControlName="email_confirmation" placeholder="Confirm Email" name="email_confirmation"> 
     <div class="alert" *ngIf="!signUpForm.controls['username'].valid && signUpForm.controls['username'].touched "></div>
-    <p>
-      <button type="submit" [disabled]="!signUpForm.valid" >Register</button>
-    </p>
+    <p></p>
+    <button type="submit" [disabled]="!signUpForm.valid" >Register</button>
   </form>
   <button (click)="resetFields()" >Clean Values</button>
   

@@ -1,3 +1,21 @@
 <p>
   sign-in works!
 </p>
+
+<div>
+  <form (ngSubmit)="signIn(signInForm.value)" [formGroup]="signInForm">
+    <input formControlName="username" name="username" placeholder="Username">
+    <input formControlName="email" name="email" placeholder="Email">
+    <input formControlName="cpf" name="cpf" placeholder="CPF">
+  
+    <p>
+      <input formControlName="password" name="password" placeholder="Password">
+    </p>
+    
+    <button type="submit" [disabled]="!signInForm.valid">Sign In</button>
+  
+  </form>
+
+  <button (click)="resetFields()">Clean Form</button>
+
+</div>
