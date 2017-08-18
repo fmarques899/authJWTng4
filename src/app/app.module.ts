@@ -11,7 +11,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService, CryptoService } from './services/index'
-
+import { UserGuard } from './guards/user.guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { AlertService, CryptoService } from './services/index'
   ],
   providers: [
     AlertService,
-    CryptoService
+    CryptoService,
+    UserGuard
   ],
   bootstrap: [AppComponent]
 })
