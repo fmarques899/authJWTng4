@@ -8,16 +8,16 @@ import { SignInComponent } from '../sign-in/sign-in.component'
 const routes: Routes = [
     {
       path: '',
-      component: SignUpComponent
+      component: SignInComponent
     },
       {
       path: 'register',
-      component: SignInComponent
+      component: SignUpComponent
     },
     // otherwise redirect to home
-    { 
-      path: '**', 
-      redirectTo: '' 
+    {
+      path: '**',
+      redirectTo: ''
     },
 ];
 @NgModule({
