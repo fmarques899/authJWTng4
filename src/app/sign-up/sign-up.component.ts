@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormBuilder,Validators } from '@angular/forms';
-import { AlertService } from '../services/index'
+import { AlertService, UserService } from '../services/index'
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +17,8 @@ export class SignUpComponent implements OnInit {
   
   constructor(
     private fb: FormBuilder,
-    private alertService : AlertService
+    private alertService : AlertService,
+    private userService : UserService
     
   ) {
     
@@ -35,14 +36,12 @@ export class SignUpComponent implements OnInit {
   },)
 
 
-  this.signUpForm.controls['username'].statusChanges.subscribe( info =>{
-      
-    if(this.signUpForm.controls['username'].status.toString() == 'INVALID' && this.signUpForm.controls['username'].touched ){
-      this.alertService.error('Username Menor')
-  }else{
-      this.alertService.removeElement('Username Menor');
-    }
-  
+  this.signUpForm.controls['username'].valueChanges.subscribe( info =>{
+    if(this.signUpForm.controls['username'].status.toString() == 'INVALID' ){
+        this.alertService.error('Username Menor')
+    }else{
+        this.alertService.removeElement('Username Menor');
+      }
   })
 
   this.signUpForm.controls['cpf'].statusChanges.subscribe( info =>{
@@ -95,10 +94,21 @@ export class SignUpComponent implements OnInit {
    this.signUpForm.reset();
   }
   
-  signUp(){
+  signUp(user : any){
     //Function for register User in server
     // user service user_service f 
     console.log("Register");
+    this.userService.signUp(user).subscribe(
+      data=>{ 
+        console.log(JSON.stringify(data))
+      },
+      error=>{
+        console.log(error.json());
+        
+        this.alertService.success(JSON.stringify(error))
+      }
+      
+    )
     
   }
   

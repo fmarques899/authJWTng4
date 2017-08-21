@@ -26,7 +26,6 @@ export class AlertService {
         }
       }
     })
-
    }
 
    success(message: string, keepAfterNavigationChange = false){
