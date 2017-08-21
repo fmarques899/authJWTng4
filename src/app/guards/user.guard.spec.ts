@@ -21,10 +21,11 @@ describe('UserGuard', () => {
 
   it('should authorize a logged user', inject([UserGuard], (guard: UserGuard) => {
     spyOn(localStorage, 'getItem').and.returnValue("37893824");
-    let result = userGuard.canActivate(next, state);
     
+    let result = userGuard.canActivate(next, state);
+
     expect(result).toBeTruthy();
-  }))
+  }));
 
   it('should unauthorize an unlogged user', inject([UserGuard], (guard: UserGuard) => {
     spyOn(localStorage, 'getItem').and.returnValue("");
@@ -32,5 +33,5 @@ describe('UserGuard', () => {
     let result = userGuard.canActivate(next, state);
 
     expect(result).toBeFalsy();
-  }))
+  }));
 });
