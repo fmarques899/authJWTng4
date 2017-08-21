@@ -10,6 +10,7 @@ import { AlertService } from '../services/index'
 export class AlertComponent implements OnInit {
 
   message : any;
+  all : any
 
   constructor(
     private alert : AlertService
@@ -17,6 +18,7 @@ export class AlertComponent implements OnInit {
 
   ngOnInit() {
     this.alert.getMessage().subscribe(message=>{this.message = message})
+    this.alert.getMessageALL().subscribe(message=>{ this.all = message})
   }
 
 }

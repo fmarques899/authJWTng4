@@ -18,7 +18,7 @@ const routes: Routes = [
       path: 'register',
       component: SignUpComponent,
       canActivate: [
-        UserGuard
+        
       ]
     },
     // otherwise redirect to home

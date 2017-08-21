@@ -7,6 +7,9 @@ import { Subject } from 'rxjs/Subject';
 export class AlertService {
 
   private subject = new Subject<any>();
+  private alerts : Array<string> = [];
+  // private subject: Array<Subject<any>>
+
   private keepAfterNavigationChange = false;
 
   constructor(private router: Router) {
@@ -27,18 +30,40 @@ export class AlertService {
    }
 
    success(message: string, keepAfterNavigationChange = false){
-     this.keepAfterNavigationChange = keepAfterNavigationChange;
-     this.subject.next({ type: 'success', text: message });
+    this.addElement(message); 
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next({ type: 'success', text: message }); 
     }
    
 
   error(message: string, keepAfterNavigationChange = false) {
+    console.log({message});
         this.keepAfterNavigationChange = keepAfterNavigationChange;
         this.subject.next({ type: 'error', text: message });
-    }
+        this.addElement(message)
+      }
  
-    getMessage(): Observable<any> {
-        return this.subject.asObservable();
-    }
 
+  addElement(info: string){
+    const valid = this.alerts.indexOf(info) >-1;
+    if(!valid){
+      this.alerts.push(info);
+    }
+  } 
+  
+  
+
+
+
+  getMessage(): Observable<any[]> {
+      return this.subject.asObservable();
+  }
+  
+  getMessageALL(): Observable<any[]> {
+     return Observable.of(this.alerts)
+   }
+
+    clearMessage(): Observable<any>{
+      return this.subject
+    }
 }
