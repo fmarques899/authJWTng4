@@ -13,6 +13,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService, CryptoService, UserService } from './services/index'
 import { UserGuard } from './guards/user.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { UserGuard } from './guards/user.guard';
     SignUpComponent,
     SignInComponent,
     AlertComponent,
-    
+    DashboardComponent,
 
   ],
   imports: [
