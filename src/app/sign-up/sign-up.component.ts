@@ -23,7 +23,7 @@ export class SignUpComponent implements OnInit {
     
     this.signUpForm = fb.group({
       'username':[null,Validators.compose([Validators.required, Validators.minLength(5)])],
-      'cpf':[null,Validators.compose([Validators.required, Validators.minLength(2)])]
+      'cpf':[null,Validators.compose([Validators.required, Validators.minLength(3)])]
 ,     'password':[null,Validators.compose([Validators.required])],
       'password_confirmation': [null,Validators.required],
       'email': [null,Validators.compose([Validators.email,Validators.required])],
@@ -36,21 +36,20 @@ export class SignUpComponent implements OnInit {
 
 
   this.signUpForm.controls['username'].statusChanges.subscribe( info =>{
-   
-  if(this.signUpForm.controls['username'].status.toString() == 'INVALID' && this.signUpForm.controls['username'].touched ){
-      this.alertService.error('Username Menor')
       
-   }else{
-      this.alertService.success('Messagem OK');
+    if(this.signUpForm.controls['username'].status.toString() == 'INVALID' && this.signUpForm.controls['username'].touched ){
+      this.alertService.error('Username Menor')
+  }else{
+      this.alertService.removeElement('Username Menor');
     }
-    
+  
   })
 
   this.signUpForm.controls['cpf'].statusChanges.subscribe( info =>{
     if(this.signUpForm.controls['username'].status.toString() == 'INVALID' && this.signUpForm.controls['cpf'].touched ){
       this.alertService.error('error cpf')
     }else{
-      this.alertService.success(' Ok');
+      this.alertService.removeElement('sss cpf');
     }
     
   })

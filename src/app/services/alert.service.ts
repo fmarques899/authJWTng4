@@ -50,6 +50,10 @@ export class AlertService {
       this.alerts.push(info);
     }
   } 
+
+  removeElement(info : string){
+    this.alerts.splice(this.alerts.indexOf(info),1);
+  }
   
   
 
