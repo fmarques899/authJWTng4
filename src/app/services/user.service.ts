@@ -15,38 +15,26 @@ export class UserService {
   ) { }
 
   signUp(user : any){
-    let ui : any
-    ui = {user}
-
-    return this.http.post('http://localhost:3000/users',ui).map((response : Response)=>
-    {
-      response.json();
-    }
-    );
-
+    return this.http.post('http://localhost:3000/users',user).map((response : Response)=>{ return response.json()});
   }
 
   signIn(user : any){
-    return this.http.get('http://jsonplaceholder.typicode.com/users',user ).map((response : Response)=>{
-    let cryptToken = this.cryptoService.encrypt(response.toString(), 'key is 123');
-    localStorage.setItem('token', cryptToken);
-
-    return response;
-  }, error => {
-
-  });
-
+    console.log(user);
+    
+    return this.http.post('http://localhost:3000/users/login',user).map((response : Response)=>{
+      let cryptToken = this.cryptoService.encrypt(response.toString(), 'key is 123');
+      localStorage.setItem('token', cryptToken);
+      return response.json()
+    });
   }
 
   fetch(){
-     return this.http.get('https://jsonplaceholder.typicode.com/users',this.jwt).map((response : Response)=>{
-      //Set information for user in
-  });
-
+     return this.http.get('http://localhost:3000/users',this.jwt()).map((response : Response)=>{
+     });
   }
 
   logout(){
-
+    localStorage.clear();
   }
 
   refresh(){

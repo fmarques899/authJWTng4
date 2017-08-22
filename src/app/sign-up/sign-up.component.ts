@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router'
 import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { AlertService, UserService } from '../services/index'
 
@@ -18,13 +18,14 @@ export class SignUpComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private alertService : AlertService,
-    private userService : UserService
+    private userService : UserService,
+    private router : Router
     
   ) {
     
     this.signUpForm = fb.group({
-      'username':[null,Validators.compose([Validators.required, Validators.minLength(5)])],
-      'cpf':[null,Validators.compose([Validators.required, Validators.minLength(3)])]
+      'username':[null,Validators.compose([Validators.required, Validators.minLength(2)])],
+      'cpf':[null,Validators.compose([Validators.required, Validators.minLength(2)])]
 ,     'password':[null,Validators.compose([Validators.required])],
       'password_confirmation': [null,Validators.required],
       'email': [null,Validators.compose([Validators.email,Validators.required])],
@@ -100,11 +101,11 @@ export class SignUpComponent implements OnInit {
     console.log("Register");
     this.userService.signUp(user).subscribe(
       data=>{ 
-        console.log(JSON.stringify(data))
+        this.alertService.success(JSON.stringify(data));
+        this.router.navigate(['/login']);
       },
       error=>{
         console.log(error.json());
-        
         this.alertService.success(JSON.stringify(error))
       }
       

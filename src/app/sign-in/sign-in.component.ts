@@ -30,22 +30,17 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
 
-
   signIn(user : any){
     console.log("Login");
     this.userService.signIn(user).subscribe(
       data=>{
-        console.log(JSON.stringify(data))
+        console.log(data)
       },
       error=>{
-
-        console.log(JSON.stringify(error) + "error!!!");
-
-        this.alertService.success(JSON.stringify(error))
+        console.log(error);
+        this.alertService.success(error)
       }
-
     )
-
   }
 
   resetFields(){
