@@ -16,7 +16,8 @@ export class SignInComponent implements OnInit {
     private fb : FormBuilder,
     private userService: UserService,
     private alertService: AlertService,
-    private cryptoService: CryptoService
+    private cryptoService: CryptoService,
+    private router: Router
   ) {
 
     this.signInForm = fb.group({
@@ -36,6 +37,7 @@ export class SignInComponent implements OnInit {
       data=>{
         let encryptedToken = this.cryptoService.encrypt(data.jwt, 'Yi Mobile');
         localStorage.setItem('token', encryptedToken);
+        this.router.navigate(['/dashboard']);
       },
       error=>{
         console.log(error);

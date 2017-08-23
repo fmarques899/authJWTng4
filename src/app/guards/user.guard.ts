@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserGuard implements CanActivate {
+  constructor(private router: Router) {
+
+  }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -15,6 +19,7 @@ export class UserGuard implements CanActivate {
         isAuthorized = true;
     } else {
       console.log("Usuario nao autorizado para esta rota");
+      this.router.navigate(['/login']);
     }
 
     return isAuthorized;
