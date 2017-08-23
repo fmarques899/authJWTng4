@@ -19,11 +19,8 @@ export class UserService {
   }
 
   signIn(user : any){
-    console.log(user);
-    
     return this.http.post('http://localhost:3000/users/login',user,this.jwt() ).map((response : Response)=>{
-      let cryptToken = this.cryptoService.encrypt(response.toString(), 'key is 123');
-      localStorage.setItem('token', cryptToken);
+
       return response.json()
     });
   }

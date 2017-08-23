@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators }  from '@angular/forms'
-import { UserService, AlertService } from '../services/index';
+import { UserService, AlertService, CryptoService } from '../services/index';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,6 +16,7 @@ export class SignInComponent implements OnInit {
     private fb : FormBuilder,
     private userService: UserService,
     private alertService: AlertService,
+    private cryptoService: CryptoService
   ) {
 
     this.signInForm = fb.group({
@@ -30,15 +31,15 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
 
-  signIn(user : any){
-    console.log("Login");
+  signIn(user : any) {
     this.userService.signIn(user).subscribe(
       data=>{
-        console.log(data)
+        let encryptedToken = this.cryptoService.encrypt(data.jwt, 'Yi Mobile');
+        localStorage.setItem('token', encryptedToken);
       },
       error=>{
         console.log(error);
-        this.alertService.success(error)
+        this.alertService.success(error);
       }
     )
   }
