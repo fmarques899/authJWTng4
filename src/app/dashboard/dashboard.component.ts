@@ -11,7 +11,9 @@ export class DashboardComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-
+    this.userService.fetch().subscribe(response=>{
+      console.log(response);      
+    })
   }
 
   logout() {

@@ -22,7 +22,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SignInComponent,
     AlertComponent,
     DashboardComponent,
-
   ],
   imports: [
     BrowserModule,
