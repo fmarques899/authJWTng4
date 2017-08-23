@@ -13,6 +13,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService, CryptoService, UserService } from './services/index'
 import { UserGuard } from './guards/user.guard';
+import { LoggedGuard } from './guards/logged.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
@@ -36,7 +37,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AlertService,
     CryptoService,
     UserGuard,
-    UserService
+    UserService,
+    LoggedGuard
   ],
   bootstrap: [AppComponent]
 })

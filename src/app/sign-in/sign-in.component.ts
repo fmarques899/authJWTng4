@@ -37,7 +37,8 @@ export class SignInComponent implements OnInit {
       data=>{
         let encryptedToken = this.cryptoService.encrypt(data.jwt, 'Yi Mobile');
         localStorage.setItem('token', encryptedToken);
-        this.router.navigate(['/dashboard']);
+        console.log("Successfully authenticated on server")
+        this.router.navigate(['dashboard']);
       },
       error=>{
         console.log(error);

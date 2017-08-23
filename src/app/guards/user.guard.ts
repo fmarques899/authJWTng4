@@ -25,6 +25,7 @@ export class UserGuard implements CanActivate {
         if(this.userService.valid(localStorage.getItem('token'))) {
             isAuthorized = true;
         } else {
+            console.log("Token acquired is not a valid token");
             isAuthorized = false;
         }
 
