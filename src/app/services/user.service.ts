@@ -21,7 +21,7 @@ export class UserService {
   signIn(user : any){
     console.log(user);
     
-    return this.http.post('http://localhost:3000/users/login',user).map((response : Response)=>{
+    return this.http.post('http://localhost:3000/users/login',user,this.jwt() ).map((response : Response)=>{
       let cryptToken = this.cryptoService.encrypt(response.toString(), 'key is 123');
       localStorage.setItem('token', cryptToken);
       return response.json()
@@ -48,7 +48,7 @@ export class UserService {
   private jwt(){
     //create authorization
     let currentUser = JSON.parse(sessionStorage.getItem('token'))
-    this.cryptoService.decrypt('token',currentUser);
+    // this.cryptoService.decrypt(currentUser,'key is 123');
 
     if(currentUser && currentUser.token){
       let headers = new  Headers({'Authorization':'Bear ' + currentUser.token});
