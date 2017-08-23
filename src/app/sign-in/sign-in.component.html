@@ -6,9 +6,9 @@
     <input formControlName="password" name="password" placeholder="Password">
   <p></p>
     <button type="submit" [disabled]="!signInForm.valid">Sign In</button>
-  
-  </form>
 
+  </form>
+  <button [routerLink]="['register']" type="button" name="button">Cadastrar</button>
   <button (click)="resetFields()">Clean Form</button>
 
 </div>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http'
 import 'rxjs/add/operator/map'
-import { CryptoService } from '../services/crypto.service'
-
+import { CryptoService } from '../services/index';
+import { Router } from "@angular/router";
 
 @Injectable()
 export class UserService {
@@ -11,7 +11,8 @@ export class UserService {
 
   constructor(
     private http : Http,
-    private cryptoService : CryptoService
+    private cryptoService : CryptoService,
+    private router: Router
   ) { }
 
   signUp(user : any){
@@ -32,6 +33,8 @@ export class UserService {
 
   logout(){
     localStorage.clear();
+    this.router.navigate([''])
+
   }
 
   refresh(){
