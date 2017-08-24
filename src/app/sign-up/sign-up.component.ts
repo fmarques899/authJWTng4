@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
-import { FormGroup, FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertService, UserService } from '../services/index'
 
 @Component({
@@ -10,109 +10,80 @@ import { AlertService, UserService } from '../services/index'
 })
 export class SignUpComponent implements OnInit {
 
-  signUpForm: FormGroup;
-  alert : string;
-  ar : Array<string>[] = [];
-  
-  
+  personIdentifierForm: FormGroup;
+  registrationForm: FormGroup;
+  alert: string;
+  ar: Array<string>[] = [];
+
+
   constructor(
     private fb: FormBuilder,
-    private alertService : AlertService,
-    private userService : UserService,
-    private router : Router
-    
+    private alertService: AlertService,
+    private userService: UserService,
+    private router: Router
+
   ) {
-    
-    this.signUpForm = fb.group({
-      'username':[null,Validators.compose([Validators.required, Validators.minLength(2)])],
-      'cpf':[null,Validators.compose([Validators.required, Validators.minLength(2)])]
-,     'password':[null,Validators.compose([Validators.required])],
-      'password_confirmation': [null,Validators.required],
-      'email': [null,Validators.compose([Validators.email,Validators.required])],
-      'email_confirmation': [null,Validators.compose([Validators.email,Validators.required])]
-    },
-    {
-      validatorPassword: this.checkIfMatchingPasswords('password', 'password_confirmation'),
-      validatorEmail : this.checkIfMatchingEmails('email', 'email_confirmation')  
-  },)
+
+    this.registrationForm = fb.group({
+      'password': [null, Validators.compose([Validators.required])],
+      'password_confirmation': [null, Validators.compose([Validators.required])],
+      'email': [null, Validators.compose([Validators.required])],
+      'email_confirmation': [null, Validators.compose([Validators.required])],
+    })
+    this.personIdentifierForm = fb.group({
+      'cpf': [null, Validators.compose([Validators.required, Validators.minLength(2)])],
+      'dateOfBirth': [null, Validators.compose([Validators.required])],
+    })
 
 
-  this.signUpForm.controls['username'].valueChanges.subscribe( info =>{
-    if(this.signUpForm.controls['username'].status.toString() == 'INVALID' ){
-        this.alertService.error('Username Menor')
-    }else{
-        this.alertService.removeElement('Username Menor');
-      }
-  })
+    this.personIdentifierForm.controls['cpf'].statusChanges.subscribe(info => {
 
-  this.signUpForm.controls['cpf'].statusChanges.subscribe( info =>{
-    if(this.signUpForm.controls['username'].status.toString() == 'INVALID' && this.signUpForm.controls['cpf'].touched ){
-      this.alertService.error('error cpf')
-    }else{
-      this.alertService.removeElement('sss cpf');
-    }
-    
-  })
+    })
 
-     
+
 
   }
 
-  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-          return (group: FormGroup) => {
-            let passwordInput = group.controls[passwordKey],
-                passwordConfirmationInput = group.controls[passwordConfirmationKey];
-            if (passwordInput.value !== passwordConfirmationInput.value) {
-              return passwordConfirmationInput.setErrors({notEquivalent: true})
-            }
-            else {
-                return passwordConfirmationInput.setErrors(null);
-            }
-          }
-        }
-
-  checkIfMatchingEmails(emailKey: string, emailConfirmationKey: string) {
-          return (group: FormGroup) => {
-            let emailInput = group.controls[emailKey],
-                emailConfirmationInput = group.controls[emailConfirmationKey];
-            if (emailInput.value !== emailConfirmationInput.value) {
-              return emailConfirmationInput.setErrors({notEquivalent: true})
-            }
-            else {
-                return emailConfirmationInput.setErrors(null);
-            }
-          }
-        }      
+  isValidPerson() {
+    let isPersonValid = false;
+    if (this.personIdentifierForm.value.cpf !== undefined && this.personIdentifierForm.value.dateOfBirth) {
+      if (this.personIdentifierForm.valid) {
+        isPersonValid = this.userService.getInfoByCPFAndbirthDate(this.personIdentifierForm.value.cpf, this.personIdentifierForm.value.dateOfBirth);
+      } else {
+        isPersonValid = false;
+      }
+    }
 
 
-
+    return isPersonValid;
+  }
 
   ngOnInit() {
   }
 
-  resetFields(){
-    //Function for clean values in form 
-   this.signUpForm.reset();
+  resetFields() {
+    //Function for clean values in form
+    this.personIdentifierForm.reset();
   }
-  
-  signUp(user : any){
+
+  signUp(user: any) {
     //Function for register User in server
-    // user service user_service f 
+    // user service user_service f
     console.log("Register");
     this.userService.signUp(user).subscribe(
-      data=>{ 
+      data => {
         this.alertService.success(JSON.stringify(data));
         this.router.navigate(['/login']);
       },
-      error=>{
+      error => {
         console.log(error.json());
         this.alertService.success(JSON.stringify(error))
       }
-      
+
     )
-    
+
   }
-  
+
 
 
 }

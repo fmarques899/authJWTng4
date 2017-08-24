@@ -26,6 +26,10 @@ export class UserService {
     });
   }
 
+  getInfoByCPFAndbirthDate(cpf : string, birthDate: Date) {
+    console.log(cpf +  "/" + birthDate);
+    return true;
+  }
   fetch(){
         let jwt = this.cryptoService.decrypt(localStorage.getItem("token"),'Yi Mobile');
 
