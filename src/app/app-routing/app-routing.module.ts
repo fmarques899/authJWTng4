@@ -12,9 +12,9 @@ const routes: Routes = [
     {
       path: '',
       component: SignInComponent,
-      // canActivate: [
-      //   LoggedGuard
-      // ]
+      canActivate: [
+        LoggedGuard
+      ]
     },
       {
       path: 'register',
@@ -30,7 +30,7 @@ const routes: Routes = [
     // otherwise redirect to home
     {
       path: '**',
-      redirectTo: ''
+      redirectTo: 'dashboard'
     },
 ];
 @NgModule({
